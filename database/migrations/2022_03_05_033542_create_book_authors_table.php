@@ -16,9 +16,11 @@ return new class extends Migration
         Schema::create('book_authors', function (Blueprint $table) {
             $table->id();
             $table->integer('author_id')->unique();
+            $table->integer('book_id')->unique();
             $table->date('author_date');
             $table->string('remark');
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
         });
     }
 

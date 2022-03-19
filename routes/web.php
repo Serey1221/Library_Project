@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookAuthorController;
+use App\Http\Controllers\BookController;
+use App\http\Controllers\BooktypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +21,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+    Route::get('upload.html', 'AuthorCOntroller@uploadfile')->name('uploadfile');
+    Route::post('post', 'AuthorCOntroller@postfile')->name('post');
+
+
 Route::resource('bookauthors',BookAuthorController::class);
+Route::prefix("library")->group(function (){
+    Route::get('/', [BookAuthorController::class, "index"]);
+    Route::get('create', [BookAuthorController::class, "create"]);
+    Route::post('create',[BookAuthorController::class, 'store']);
+    Route::put('update',[BookAuthorController::class,'update']);
+    Route::get('edit/{id}',[BookAuthorController::class,'edit']);
+    Route::get('delete/{id}',[BookAuthorController::class,'destroy']);
+    Route::get('show/{id}',[BookAuthorController::class,'show']);
+});
+
 
 Route::resource('authors',AuthorController::class);
-Route::get('authors/delete/{id}',[AuthorController::class,"delete"])->name('authors.delete');
+//Route::get('authors/delete/{id}',[AuthorController::class,"delete"])->name('authors.delete');
 Route::prefix("library")->group(function (){
     Route::get('/', [AuthorController::class, "index"]);
     Route::get('create', [AuthorController::class, "create"])->name('authors.create');
@@ -31,20 +47,16 @@ Route::prefix("library")->group(function (){
     Route::get('edit/{id}',[AuthorController::class,'edit'])->name('authors.edit');
     Route::get('delete/{id}',[AuthorController::class,'destroy']);
     Route::get('show/{id}',[AuthorController::class,'show']);
+    
 });
 
-
-
-// Route::resource('carstores', CarstoreController::class);
-// Route::get('carstores/delete/{id}', [CarstoreController::class, "delete"])->name("carstores.delete");
-
-// Route::prefix("studentapp")->group(function () {
-
-//     Route::get('/', [CarstoreController::class, "index"]);
-//     Route::get('carstores/create', [CarstoreController::class, "create"]);
-//     Route::post('create', [CarstoreController::class, "store"]);
-//     Route::put('update', [CarstoreController::class, "update"]);
-//     Route::get('edit/{id}', [CarstoreController::class, "edit"]);
-//     Route::get('delete/{id}', [CarstoreController::class, "destroy"]);
-//     Route::get('show/{id}', [CarstoreController::class, "show"]);
-// });
+Route::resource('books',BookController::class);
+Route::prefix("library")->group(function (){
+    Route::get('/', [BookController::class, "index"]);
+    Route::get('create', [BookController::class, "create"]);
+    Route::post('create',[BookController::class, 'store']);
+    Route::put('update',[BookController::class,'update']);
+    Route::get('edit/{id}',[BookController::class,'edit']);
+    Route::get('delete/{id}',[BookController::class,'destroy']);
+    Route::get('show/{id}',[BookController::class,'show']);
+});

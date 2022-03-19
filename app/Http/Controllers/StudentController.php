@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class BookAuthorController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +13,7 @@ class BookAuthorController extends Controller
      */
     public function index()
     {
-        $bookauthor = DB::table('book_authors')->get();
-        return view('bookauthors.index',['data' => $bookauthor]);
+        //
     }
 
     /**
@@ -25,7 +23,7 @@ class BookAuthorController extends Controller
      */
     public function create()
     {
-        return view('bookauthors.create');
+        //
     }
 
     /**
@@ -36,10 +34,7 @@ class BookAuthorController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->except(['_token']);
-        if (DB::table('book_authors')->insert($data,)){
-            return redirect('/bookauthors')->with('message','created');
-        }
+        //
     }
 
     /**
@@ -50,8 +45,7 @@ class BookAuthorController extends Controller
      */
     public function show($id)
     {
-        $bookauthor = DB::table('book_authors')->find($id);
-        return view('bookauthors.show',compact("bookauthor"));
+        //
     }
 
     /**
@@ -62,8 +56,7 @@ class BookAuthorController extends Controller
      */
     public function edit($id)
     {
-        $bookauthor = DB::table('book_authors')->find($id);
-        return view('bookauthors.edit',compact('bookauthor'));
+        //
     }
 
     /**
@@ -75,10 +68,7 @@ class BookAuthorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->except('_token','_methor');
-        if(DB::table('book_authors')->where('id',$id)->update($data)){
-            return redirect('library');
-        }
+        //
     }
 
     /**
@@ -89,14 +79,6 @@ class BookAuthorController extends Controller
      */
     public function destroy($id)
     {
-        if (DB::table('book_authors')->where('id',$id)->delete()){
-            return redirect('/bookauthors');
-        }
-    }
-    public function delete()
-    {
-
-        $bookauthor = DB::table('book_authors')->find($id);
-        return view('bookauthors.delete',compact('bookauthor'));
+        //
     }
 }

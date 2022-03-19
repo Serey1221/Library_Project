@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ImageRequest;
 
 class AuthorController extends Controller
 {
@@ -107,5 +108,18 @@ class AuthorController extends Controller
 
         $author = DB::table('authors')->find($id);
         return view('authors.delete',compact('author'));
+    }
+    public function UploadFile()
+    {
+        return view('image.uploadfile');
+    }
+    public function PostFile(ImageRequest $request)
+    {
+        if ($request->hasFile('photo') && $request->file('photo')->isValid())
+        {
+            $name = $request->file('photo')->getClientOriginalName();
+            $result = $request->file('photo')->storeAs('/upload', $name);
+            var_dump($result);
+        }
     }
 }
