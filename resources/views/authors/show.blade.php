@@ -34,6 +34,7 @@
                                     <dd class="col-sm-10">: {{$author->email}}</dd>
                                 <dt class="col-sm-2">Photo</dt>
                                     <dd class="col-sm-10">: {{$author->photo}}</dd>
+                                    <img src="{{ asset('images/' .$author->image_path) }}" alt="">
                             </dl>
                     </div>
                         <a href="{{route('authors.edit',$author->id) }}" class="btn btn-warning rounded-left">Update</a>

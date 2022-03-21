@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -13,7 +14,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $student = DB::table('students')->get();
+        return view('students.index', ['data' => $student]);
     }
 
     /**
@@ -23,7 +25,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('students.create');
     }
 
     /**
@@ -34,7 +36,10 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->except(['_token']);
+        if (DB::table('students')->insert($data,)) {
+            return redirect('/students')->with('message', 'created');
+        }
     }
 
     /**
@@ -45,7 +50,8 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //
+        $student = DB::table('students')->find($id);
+        return view('students.show', compact('student'));
     }
 
     /**
@@ -56,7 +62,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student = DB::table('students')->find($id);
+        return view('students.edit', compact('student'));
     }
 
     /**
@@ -68,7 +75,10 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->except('_token', '_method');
+        if (DB::table('students')->where('id', $id)->update($data)) {
+            return redirect('library_student');
+        }
     }
 
     /**
@@ -79,6 +89,14 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (DB::table('students')->where('id', $id)->delete()) {
+            return redirect('/students');
+        }
+    }
+    public function delete()
+    {
+
+        $student = DB::table('students')->find($id);
+        return view('students.delete', compact('student'));
     }
 }

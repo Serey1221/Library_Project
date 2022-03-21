@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ImageRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Author;
 
 class AuthorController extends Controller
 {
@@ -16,7 +18,7 @@ class AuthorController extends Controller
     public function index()
     {
         $author = DB::table('authors')->get();
-        return view('authors.index',['data' => $author]);
+        return view('authors.index', ['data' => $author]);
     }
 
     /**
@@ -37,10 +39,36 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
+        //Methods we can use on $request
+        //guessEctension()
+        //getMineType()
+        //store()
+        //asStore()
+        //storePublicly()
+        //move()
+        //getClientOriginalName()
+        //getClientMimeType()
+        // $test = $request->file('photo')->getClientOriginalName();
+
+        // dd($test);
+
+        // $newImageName = time() . '-' . $request->name . '.' . $request->photo->extension();
+        // $request->photo->move(public_path('images'), $newImageName);
+
+        // $request->validate([
+        //     'name' => 'required',
+        //     'gender' => 'required',
+        //     'dob' => 'required',
+        //     'pod' => 'required',
+        //     'address' => 'required',
+        //     'phone' => 'required',
+        //     'email' => 'required',
+        //     'photo' => 'requored|mimes:jpg,png,jpeg|max:5048'
+        // ]);
 
         $data = $request->except(['_token']);
-        if (DB::table('authors')->insert($data,)){
-            return redirect('/authors')->with('message','created');
+        if (DB::table('authors')->insert($data,)) {
+            return redirect('/authors')->with('message', 'created');
         }
     }
 
@@ -54,7 +82,7 @@ class AuthorController extends Controller
     {
 
         $author = DB::table('authors')->find($id);
-        return view('authors.show',compact("author"));
+        return view('authors.show', compact("author"));
     }
 
     /**
@@ -67,7 +95,7 @@ class AuthorController extends Controller
     {
 
         $author = DB::table('authors')->find($id);
-        return view('authors.edit',compact('author'));
+        return view('authors.edit', compact('author'));
     }
 
     /**
@@ -80,9 +108,9 @@ class AuthorController extends Controller
     public function update(Request $request, $id)
     {
 
-        $data = $request->except(['_token','_method']);
-        if(DB::table('authors')->where('id',$id)->update($data)){
-            return redirect('library');
+        $data = $request->except(['_token', '_method']);
+        if (DB::table('authors')->where('id', $id)->update($data)) {
+            return redirect('library_author');
         }
     }
 
@@ -99,7 +127,7 @@ class AuthorController extends Controller
         //     //return redirect("/authors");
         // }
 
-        if (DB::table('authors')->where('id',$id)->delete()){
+        if (DB::table('authors')->where('id', $id)->delete()) {
             return redirect('/authors');
         }
     }
@@ -107,19 +135,19 @@ class AuthorController extends Controller
     {
 
         $author = DB::table('authors')->find($id);
-        return view('authors.delete',compact('author'));
+        return view('authors.delete', compact('author'));
     }
-    public function UploadFile()
-    {
-        return view('image.uploadfile');
-    }
-    public function PostFile(ImageRequest $request)
-    {
-        if ($request->hasFile('photo') && $request->file('photo')->isValid())
-        {
-            $name = $request->file('photo')->getClientOriginalName();
-            $result = $request->file('photo')->storeAs('/upload', $name);
-            var_dump($result);
-        }
-    }
+    // public function UploadFile()
+    // {
+    //     return view('image.uploadfile');
+    // }
+    // public function PostFile(ImageRequest $request)
+    // {
+    //     if ($request->hasFile('photo') && $request->file('photo')->isValid())
+    //     {
+    //         $name = $request->file('photo')->getClientOriginalName();
+    //         $result = $request->file('photo')->storeAs('/upload', $name);
+    //         var_dump($result);
+    //     }
+    // }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BooktypeController extends Controller
 {
@@ -13,7 +14,8 @@ class BooktypeController extends Controller
      */
     public function index()
     {
-        //
+        $booktype = DB::table('book_types')->get();
+        return view('booktypes.index', ['data' => $booktype]);
     }
 
     /**
@@ -23,7 +25,7 @@ class BooktypeController extends Controller
      */
     public function create()
     {
-        //
+        return view('booktypes.create');
     }
 
     /**
@@ -34,7 +36,10 @@ class BooktypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->except(['_token']);
+        if (DB::table('book_types')->insert($data,)) {
+            return redirect('/booktypes')->with('message', 'created');
+        }
     }
 
     /**
@@ -45,7 +50,8 @@ class BooktypeController extends Controller
      */
     public function show($id)
     {
-        //
+        $booktype = DB::table('book_types')->find($id);
+        return view('booktypes.show', compact("booktype"));
     }
 
     /**
@@ -56,7 +62,8 @@ class BooktypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $booktype = DB::table('book_types')->find($id);
+        return view('booktypes.edit', compact('booktype'));
     }
 
     /**
@@ -68,7 +75,10 @@ class BooktypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->except('_token', '_methor');
+        if (DB::table('book_types')->where('id', $id)->update($data)) {
+            return redirect('library_booktype');
+        }
     }
 
     /**
@@ -79,6 +89,14 @@ class BooktypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (DB::table('book_types')->where('id', $id)->delete()) {
+            return redirect('/booktypes');
+        }
+    }
+    public function delete()
+    {
+
+        $booktype = DB::table('book_types')->find($id);
+        return view('booktypes.delete', compact('booktype'));
     }
 }

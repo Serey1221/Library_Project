@@ -16,7 +16,7 @@ class BookController extends Controller
     public function index()
     {
         $book = DB::table('books')->get();
-        return view('books.index',['data' => $book]);
+        return view('books.index', ['data' => $book]);
     }
 
     /**
@@ -37,9 +37,11 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        
+
         $data = $request->except(['_token']);
-        if (DB::table('books')->insert($data,)){
-            return redirect('/books')->with('message','created');
+        if (DB::table('books')->insert($data,)) {
+            return redirect('/books')->with('message', 'created');
         }
     }
 
@@ -52,7 +54,7 @@ class BookController extends Controller
     public function show($id)
     {
         $book = DB::table('books')->find($id);
-        return view('books.show',compact("book"));
+        return view('books.show', compact("book"));
     }
 
     /**
@@ -64,7 +66,7 @@ class BookController extends Controller
     public function edit($id)
     {
         $book = DB::table('books')->find($id);
-        return view('books.edit',compact('book'));
+        return view('books.edit', compact('book'));
     }
 
     /**
@@ -76,9 +78,9 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->except('_token','_methor');
-        if(DB::table('books')->where('id',$id)->update($data)){
-            return redirect('library');
+        $data = $request->except('_token', '_method');
+        if (DB::table('books')->where('id', $id)->update($data)) {
+            return redirect('library_book');
         }
     }
 
@@ -90,7 +92,7 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        if (DB::table('books')->where('id',$id)->delete()){
+        if (DB::table('books')->where('id', $id)->delete()) {
             return redirect('/books');
         }
     }
@@ -98,6 +100,6 @@ class BookController extends Controller
     {
 
         $book = DB::table('books')->find($id);
-        return view('books.delete',compact('book'));
+        return view('books.delete', compact('book'));
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BorrowController extends Controller
 {
@@ -13,7 +14,8 @@ class BorrowController extends Controller
      */
     public function index()
     {
-        //
+        $borrow = DB::table('borrows')->get();
+        return view('borrows.index', ['data' => $borrow]);
     }
 
     /**
@@ -23,7 +25,7 @@ class BorrowController extends Controller
      */
     public function create()
     {
-        //
+        return view('borrows.create');
     }
 
     /**
@@ -34,7 +36,10 @@ class BorrowController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->except(['_token']);
+        if (DB::table('borrows')->insert($data,)) {
+            return redirect('/borrows')->with('message', 'created');
+        }
     }
 
     /**
@@ -45,7 +50,8 @@ class BorrowController extends Controller
      */
     public function show($id)
     {
-        //
+        $borrow = DB::table('borrows')->find($id);
+        return view('borrows.show', compact('borrow'));
     }
 
     /**
@@ -56,7 +62,8 @@ class BorrowController extends Controller
      */
     public function edit($id)
     {
-        //
+        $borrow = DB::table('borrows')->find($id);
+        return view('borrows.edit', compact('borrow'));
     }
 
     /**
@@ -68,7 +75,10 @@ class BorrowController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->except('_token', '_method');
+        if (DB::table('borrows')->where('id', $id)->update($data)) {
+            return redirect('library_borrow');
+        }
     }
 
     /**
@@ -79,6 +89,14 @@ class BorrowController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (DB::table('borrows')->where('id', $id)->delete()) {
+            return redirect('/borrows');
+        }
+    }
+    public function delete()
+    {
+
+        $borrow = DB::table('borrows')->find($id);
+        return view('borrows.delete', compact('borrow'));
     }
 }

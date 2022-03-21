@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LibrarianController extends Controller
 {
@@ -13,7 +14,8 @@ class LibrarianController extends Controller
      */
     public function index()
     {
-        //
+        $librarian = DB::table('librarians')->get();
+        return view('librarians.index', ['data' => $librarian]);
     }
 
     /**
@@ -23,7 +25,7 @@ class LibrarianController extends Controller
      */
     public function create()
     {
-        //
+        return view('librarians.create');
     }
 
     /**
@@ -34,7 +36,10 @@ class LibrarianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->except(['_token']);
+        if (DB::table('librarians')->insert($data,)) {
+            return redirect('/librarians')->with('message', 'created');
+        }
     }
 
     /**
@@ -45,7 +50,8 @@ class LibrarianController extends Controller
      */
     public function show($id)
     {
-        //
+        $librarian = DB::table('librarians')->find($id);
+        return view('librarians.show', compact('librarian'));
     }
 
     /**
@@ -56,7 +62,8 @@ class LibrarianController extends Controller
      */
     public function edit($id)
     {
-        //
+        $librarian = DB::table('librarians')->find($id);
+        return view('librarians.edit', compact('librarian'));
     }
 
     /**
@@ -68,7 +75,10 @@ class LibrarianController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->except('_token', '_method');
+        if (DB::table('librarians')->where('id', $id)->update($data)) {
+            return redirect('library_librarian');
+        }
     }
 
     /**
@@ -79,6 +89,14 @@ class LibrarianController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (DB::table('librarians')->where('id', $id)->delete()) {
+            return redirect('/librarians');
+        }
+    }
+    public function delete()
+    {
+
+        $librarian = DB::table('librarians')->find($id);
+        return view('librarians.delete', compact('librarian'));
     }
 }

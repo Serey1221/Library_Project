@@ -19,7 +19,7 @@
                             <div class="m-2">
                                 <div class="form-group ">
                                     <label  for="author_id">Author_id</label>
-                                    <input class="form-control @error('author_id') is-invalid @enderror" type="text" 
+                                    <input class="form-control" type="text" 
                                     placeholder="Enter author_id" 
                                         author_id="author_id" id="author_id" value="{{ old('author_id') }}" />
                                         @error('name')
