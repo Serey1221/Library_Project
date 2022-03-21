@@ -14,7 +14,7 @@
         <div id="content-wrapper" class="d-flex flex-column">
             @include('main')
             <div class="container">
-                <form action="/students" method="POST" class="row justify-content-center">
+                <form action="/students" method="POST" class="row justify-content-center" enctype="multipart/form-data">
                     <div class="col-lg-6">
                         @csrf
                         <div class="m-2">
@@ -86,7 +86,7 @@
                         <div class="m-2">
                             <div class="form-group">
                                 <label for="photo">Photo</label>
-                                <input  type="file" placeholder="Enter photo" name="photo" id="photo" value="{{ old('photo') }}"></input>
+                                <input type="file" placeholder="Enter photo" name="photo" id="photo" value="{{ old('photo') }}"></input>
                                 @error('photo')
                                 <span class="text-danger">{{$message}}</span>
                                 @enderror

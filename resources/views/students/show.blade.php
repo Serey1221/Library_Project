@@ -35,7 +35,9 @@
                         <dt class="col-sm-2">Email</dt>
                         <dd class="col-sm-10">: {{$student->email}}</dd>
                         <dt class="col-sm-2">Photo</dt>
-                        <dd class="col-sm-10">: {{$student->photo}}</dd>
+                        <dd class="col-sm-10">:
+                            <img src="{{ asset('storage/images/'.$student->photo) }}" style="width: 50px; height: 50px; object-fit: cover;" />
+                        </dd>
                     </dl>
                 </div>
                 <a href="{{route('students.edit',$student->id) }}" class="btn btn-warning rounded-left"><i class="fa-solid fa-pen-to-square"></i></a>

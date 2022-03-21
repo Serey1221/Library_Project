@@ -93,7 +93,7 @@ class BooktypeController extends Controller
             return redirect('/booktypes');
         }
     }
-    public function delete()
+    public function delete($id)
     {
 
         $booktype = DB::table('book_types')->find($id);

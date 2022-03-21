@@ -21,10 +21,10 @@
                 <table class="table mt-4">
                     <thead class="thead-light">
                         <th>ID</th>
-                        <th>AUTHOR_ID</th>
-                        <th>AUHTOR_DATE</th>
-                        <th>REMARK</th>
-                        <th>ACTIONS</th>
+                        <th>AuthorID</th>
+                        <th>Author Date</th>
+                        <th>Remark</th>
+                        <th>Actions</th>
                     </thead>
                     @foreach ($data as $bookauthor)
                     <tr>

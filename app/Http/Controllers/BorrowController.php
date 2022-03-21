@@ -93,7 +93,7 @@ class BorrowController extends Controller
             return redirect('/borrows');
         }
     }
-    public function delete()
+    public function delete($id)
     {
 
         $borrow = DB::table('borrows')->find($id);

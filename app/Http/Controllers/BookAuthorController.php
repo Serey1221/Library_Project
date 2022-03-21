@@ -93,7 +93,7 @@ class BookAuthorController extends Controller
             return redirect('/bookauthors');
         }
     }
-    public function delete()
+    public function delete($id)
     {
 
         $bookauthor = DB::table('book_authors')->find($id);

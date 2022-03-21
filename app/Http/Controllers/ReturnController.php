@@ -101,7 +101,7 @@ class ReturnController extends Controller
             return redirect('/returns');
         }
     }
-    public function delete()
+    public function delete($id)
     {
 
         $return = DB::table('returns')->find($id);

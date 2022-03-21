@@ -52,22 +52,41 @@ class AuthorController extends Controller
 
         // dd($test);
 
+        // dd($request->all());
+
+        $request->validate([
+            'name' => 'required',
+            'gender' => 'required',
+            'dob' => 'required',
+            'pod' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'photo' => 'required|mimes:jpg,png,jpeg|max:5048'
+        ]);
+
+        // dd($validator);
+        // dd($request->all());
+
         // $newImageName = time() . '-' . $request->name . '.' . $request->photo->extension();
         // $request->photo->move(public_path('images'), $newImageName);
 
-        // $request->validate([
-        //     'name' => 'required',
-        //     'gender' => 'required',
-        //     'dob' => 'required',
-        //     'pod' => 'required',
-        //     'address' => 'required',
-        //     'phone' => 'required',
-        //     'email' => 'required',
-        //     'photo' => 'requored|mimes:jpg,png,jpeg|max:5048'
-        // ]);
+        // dd($request->file('photo'));
 
-        $data = $request->except(['_token']);
-        if (DB::table('authors')->insert($data,)) {
+        $name = $request->file('photo')->getClientOriginalName();
+
+        $request->file('photo')->storeAs('public/images', $name);
+
+        if (DB::table('authors')->insert([
+            'name' => $request->input('name'),
+            'gender' => $request->input('gender'),
+            "dob" => $request->input('dob'),
+            "pob" => $request->input('pob'),
+            "address" => $request->input('address'),
+            "phone" => $request->input('phone'),
+            "email" => $request->input('email'),
+            'photo' => $name
+        ])) {
             return redirect('/authors')->with('message', 'created');
         }
     }
@@ -131,23 +150,10 @@ class AuthorController extends Controller
             return redirect('/authors');
         }
     }
-    public function delete()
+    public function delete($id)
     {
 
         $author = DB::table('authors')->find($id);
         return view('authors.delete', compact('author'));
     }
-    // public function UploadFile()
-    // {
-    //     return view('image.uploadfile');
-    // }
-    // public function PostFile(ImageRequest $request)
-    // {
-    //     if ($request->hasFile('photo') && $request->file('photo')->isValid())
-    //     {
-    //         $name = $request->file('photo')->getClientOriginalName();
-    //         $result = $request->file('photo')->storeAs('/upload', $name);
-    //         var_dump($result);
-    //     }
-    // }
 }

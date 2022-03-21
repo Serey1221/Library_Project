@@ -43,7 +43,7 @@ Route::prefix("library_bookauthor")->group(function () {
 
 
 Route::resource('authors', AuthorController::class);
-Route::get('authors/delete/{id}', [AuthorController::class, "delete"])->name('authors.delete');
+// Route::get('authors/delete/{id}', [AuthorController::class, "delete"])->name('authors.delete');
 Route::prefix("library_author")->group(function () {
     Route::get('/', [AuthorController::class, "index"]);
     Route::get('create', [AuthorController::class, "create"])->name('authors.create');

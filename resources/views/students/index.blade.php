@@ -32,7 +32,7 @@
                         <th>Address</th>
                         <th>Phone</th>
                         <th>Email</th>
-                        <!-- <th>Photo</th> -->
+                        <th>Photo</th>
                         <th>Actions</th>
                     </thead>
                     @foreach ($data as $student)
@@ -45,7 +45,9 @@
                         <td>{{$student->address}}</td>
                         <td>{{$student->phone}}</td>
                         <td>{{$student->email}}</td>
-                        <!-- <td>{{$student->photo}}</td> -->
+                        <td>
+                            <img src="{{ asset('storage/images/'.$student->photo) }}" style="width: 50px; height: 50px; object-fit: cover;" />
+                        </td>
                         <td>
                             <a href="/students/{{ $student->id}}" class="border border-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
                             <a href="/students/{{ $student->id}}/edit" class="border border-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>

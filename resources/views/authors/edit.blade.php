@@ -70,7 +70,7 @@
                     <div class="m-2">
                         <div class="form-group">
                             <label  for="photo">Photo</label>
-                            <input class="form-control" type="text" placeholder="Enter photo" 
+                            <input type="file" placeholder="Enter photo" 
                                 name="photo" id="photo" value="{{$author->photo}}" />
                         </div>
                     </div>

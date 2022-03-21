@@ -14,7 +14,7 @@
         <div id="content-wrapper" class="d-flex flex-column">
             @include('main')
             <div class="container">
-                <form action="/librarians" method="POST" class="row justify-content-center">
+                <form action="/librarians" method="POST" class="row justify-content-center" enctype="multipart/form-data">
                     <div class="col-lg-6">
                         @csrf
                         <div class="m-2">

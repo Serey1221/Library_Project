@@ -17,6 +17,7 @@
             <div class="container">
                 <div class="">
                     <h2>Author Information </h2>
+
                 </div>
                 <button class="btn btn-success mt-2 mb-2" onclick="window.location.href='/authors/create'" style="float: left;">Create New</button>
                 <table class="table mt-4">
@@ -26,10 +27,10 @@
                         <th>Gender</th>
                         <!-- <th>DOB</th>
                             <th>POB</th> -->
-                        <th>ADDRESS</th>
-                        <th>PHONE</th>
-                        <th>EMAIL</th>
-                        <th>PHOTO</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Photo</th>
                         <th>Actions</th>
                     </thead>
                     @foreach ($data as $author)
@@ -42,11 +43,14 @@
                         <td>{{$author->address}}</td>
                         <td>{{$author->phone}}</td>
                         <td>{{$author->email}}</td>
-                        <td>{{$author->photo}}</td>
                         <td>
+                            <img src="{{ asset('storage/images/'.$author->photo) }}" style="width: 50px; height: 50px; object-fit: cover;" />
+                        </td>
+                        <td>
+
                             <a href="/authors/{{ $author->id}}" class="border border-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
                             <a href="/authors/{{ $author->id}}/edit" class="border border-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="{{url('/library/delete', $author->id)}}" class="border border-primary btn-sm"><i class="fa-solid fa-trash-can"></i></a>
+                            <a href="{{url('/library_author/delete', $author->id)}}" class="border border-primary btn-sm"><i class="fa-solid fa-trash-can"></i></a>
                         </td>
                     </tr>
                     @endforeach

@@ -36,8 +36,22 @@ class LibrarianController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->except(['_token']);
-        if (DB::table('librarians')->insert($data,)) {
+        $name = $request->file('photo')->getClientOriginalName();
+
+        $request->file('photo')->storeAs('public/images', $name);
+
+        if (DB::table('librarians')->insert([
+            'name' => $request->input('name'),
+            'gender' => $request->input('gender'),
+            "dob" => $request->input('dob'),
+            "pob" => $request->input('pob'),
+            "address" => $request->input('address'),
+            "phone" => $request->input('phone'),
+            "email" => $request->input('email'),
+            'user_name' => $request->input('user_name'),
+            "user_password" => $request->input('user_password'),
+            'photo' => $name
+        ])) {
             return redirect('/librarians')->with('message', 'created');
         }
     }
@@ -93,7 +107,7 @@ class LibrarianController extends Controller
             return redirect('/librarians');
         }
     }
-    public function delete()
+    public function delete($id)
     {
 
         $librarian = DB::table('librarians')->find($id);

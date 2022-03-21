@@ -12,6 +12,6 @@ class BookAuthor extends Model
 
     public function author()
     {
-        return $this->morphMany(Author::class);
+        return $this->morphMany(Author::class, 'author_id');
     }
 }

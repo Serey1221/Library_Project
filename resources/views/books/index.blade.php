@@ -29,7 +29,7 @@
                         <th>Num Of Copies</th>
                         <th>Edition</th>
                         <th>Publisher</th>
-                        <th>B_Source</th>
+                        <!-- <th>B_Source</th> -->
                         <th>B_Type_ID</th>
                         <th>Remark</th>
                         <th>Actions</th>
@@ -43,7 +43,7 @@
                         <td>{{$book->num_copies}}</td>
                         <td>{{$book->edition}}</td>
                         <td>{{$book->publisher}}</td>
-                        <td>{{$book->booksource}}</td>
+                        <!-- <td>{{$book->booksource}}</td> -->
                         <td>{{$book->booktype_id}}</td>
                         <td>{{$book->remark}}</td>
                         <td>

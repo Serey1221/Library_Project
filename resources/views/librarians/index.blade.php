@@ -32,8 +32,8 @@
                         <th>Address</th>
                         <th>Phone</th>
                         <th>Email</th>
-                        <!-- <th>Photo</th>
-                        <th>User Name</th>
+                        <th>Photo</th>
+                        <!-- <th>User Name</th>
                         <th>User Password</th> -->
                         <th>Actions</th>
                     </thead>
@@ -47,13 +47,15 @@
                         <td>{{$librarian->address}}</td>
                         <td>{{$librarian->phone}}</td>
                         <td>{{$librarian->email}}</td>
-                        <!-- <td>{{$librarian->photo}}</td>
-                        <td>{{$librarian->user_name}}</td>
+                        <td>
+                            <img src="{{ asset('storage/images/'.$librarian->photo) }}" style="width: 50px; height: 50px; object-fit: cover;" />
+                        </td>
+                        <!-- <td>{{$librarian->user_name}}</td>
                         <td>{{$librarian->user_password}}</td> -->
                         <td>
                             <a href="/librarians/{{ $librarian->id}}" class="border border-primary btn-sm"><i class="fa-solid fa-eye"></i></a>
                             <a href="/librarians/{{ $librarian->id}}/edit" class="border border-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="{{url('/library/delete', $librarian->id)}}" class="border border-primary btn-sm"><i class="fa-solid fa-trash-can"></i></a>
+                            <a href="{{url('/library_librarian/delete', $librarian->id)}}" class="border border-primary btn-sm"><i class="fa-solid fa-trash-can"></i></a>
                         </td>
                     </tr>
                     @endforeach
